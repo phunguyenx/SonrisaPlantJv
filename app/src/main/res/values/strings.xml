@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SonrisaPlantJv</string>
+    <string name="create_account">Create Your Account</string>
+    <string name="login_account">Login To Your Account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_the_password">Forgot the password?</string>
+    <string name="login">Login</string>
+</resources>
