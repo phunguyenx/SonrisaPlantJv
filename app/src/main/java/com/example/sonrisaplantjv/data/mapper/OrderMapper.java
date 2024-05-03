@@ -1,6 +1,6 @@
 package com.example.sonrisaplantjv.data.mapper;
 
-import com.example.sonrisaplantjv.data.remote.dto.Order.OrderDto;
+import com.example.sonrisaplantjv.domain.dto.Order.OrderDto;
 import com.example.sonrisaplantjv.domain.model.Order.Order;
 
 public class OrderMapper implements Mapper<OrderDto, Order>{

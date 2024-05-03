@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="RegisterViewModel"
+            type="com.example.sonrisaplantjv.presentation.viewmodels.RegisterViewModel" />
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".presentation.ui.activity.LoginActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <include layout="@layout/toolbar"
+                android:id="@+id/tool_bar_register"/>
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="160dp"
+                android:src="@drawable/logo_login" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/create_account"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/round_corner"
+                android:hint="@string/email"
+                android:text="@={RegisterViewModel.register.Email}"
+                android:id="@+id/edt_email_register"
+                android:inputType="textEmailAddress"
+                android:padding="16dp"
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:drawableEnd="@drawable/remove_red_eye_24"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="20sp"
+                android:text="@={RegisterViewModel.register.Password}"
+                android:id="@+id/edt_password_register"
+                android:background="@drawable/round_corner"
+                android:padding="16dp"
+                android:inputType="textPassword"
+                android:hint="@string/password"/>
+            <RelativeLayout
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remember_me"
+                    android:id="@+id/cb_remember_me_register"
+                    android:textSize="16sp"
+                    android:checked="@{RegisterViewModel.isRememberMe}"
+                    android:shadowColor="@color/green_app_light_2"
+                    android:textColorHighlight="@color/green_app_light_2"
+                    android:padding="8dp"/>
+
+            </RelativeLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:id="@+id/btn_register"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up"
+                android:onClick="@{() -> RegisterViewModel.clickRegister()}"
+                android:background="@drawable/round_corner_button"
+                app:backgroundTint="@color/green_app_light"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/or_continue_with"
+                android:textSize="16sp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/fb"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/gg"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/already_have_an_account"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:id="@+id/tv_sign_in"
+                    android:textColor="@color/green_app_light"
+                    android:onClick="@()={}"
+                    android:text="@string/sign_in"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

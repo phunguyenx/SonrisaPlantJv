@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import retrofit2.Response;
 
 public class Constant {
-    public static void checkResponse(Response response, Context context){
+    public static void showMessageError(Response response, Context context){
         if (!response.isSuccessful() && response.errorBody() != null) {
             try {
                 JSONObject jObjError = new JSONObject(response.errorBody().string());

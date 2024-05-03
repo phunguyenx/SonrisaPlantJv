@@ -22,7 +22,6 @@ public class ActionResponse<TPayload> {
         this.message = "";
         this.data = null;
     }
-
     public boolean isSuccess() {
         return success;
     }

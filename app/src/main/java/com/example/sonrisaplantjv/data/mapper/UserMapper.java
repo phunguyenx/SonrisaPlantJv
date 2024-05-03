@@ -1,6 +1,6 @@
 package com.example.sonrisaplantjv.data.mapper;
 
-import com.example.sonrisaplantjv.data.remote.dto.User.UserDto;
+import com.example.sonrisaplantjv.domain.dto.User.UserDto;
 import com.example.sonrisaplantjv.domain.model.User.User;
 
 public class UserMapper implements Mapper<UserDto, User>{

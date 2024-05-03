@@ -1,6 +1,6 @@
 package com.example.sonrisaplantjv.data.mapper;
 
-import com.example.sonrisaplantjv.data.remote.dto.ShippingAddress.ShippingAddressDto;
+import com.example.sonrisaplantjv.domain.dto.ShippingAddress.ShippingAddressDto;
 import com.example.sonrisaplantjv.domain.model.ShippingAddress.ShippingAddress;
 
 public class ShippingAddressMapper implements Mapper<ShippingAddressDto, ShippingAddress>{

@@ -1,6 +1,6 @@
 package com.example.sonrisaplantjv.data.mapper;
 
-import com.example.sonrisaplantjv.data.remote.dto.CartItem.CartItemDto;
+import com.example.sonrisaplantjv.domain.dto.CartItem.CartItemDto;
 import com.example.sonrisaplantjv.domain.model.CartItem.CartItem;
 
 public class CartItemMapper implements Mapper<CartItemDto, CartItem> {

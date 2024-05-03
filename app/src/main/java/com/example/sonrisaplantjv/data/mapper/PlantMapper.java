@@ -1,6 +1,6 @@
 package com.example.sonrisaplantjv.data.mapper;
 
-import com.example.sonrisaplantjv.data.remote.dto.Plant.PlantDto;
+import com.example.sonrisaplantjv.domain.dto.Plant.PlantDto;
 import com.example.sonrisaplantjv.domain.model.Plant.Plant;
 
 public class PlantMapper implements Mapper<PlantDto, Plant>{

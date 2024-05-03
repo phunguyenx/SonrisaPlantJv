@@ -1,6 +1,6 @@
 package com.example.sonrisaplantjv.data.mapper;
 
-import com.example.sonrisaplantjv.data.remote.dto.Role.RoleDto;
+import com.example.sonrisaplantjv.domain.dto.Role.RoleDto;
 import com.example.sonrisaplantjv.domain.model.Role.Role;
 
 public class RoleMapper implements Mapper<RoleDto, Role>{
