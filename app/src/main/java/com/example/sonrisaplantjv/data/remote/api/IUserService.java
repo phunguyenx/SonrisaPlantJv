@@ -18,6 +18,7 @@ import java.util.UUID;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 
 public interface IUserService {
@@ -27,6 +28,7 @@ public interface IUserService {
     Call<ResponseUUID> register(@Body Register register);
     @GET("user/get-by-id")
     Call<UserDto> getById(UUID id);
+    @Multipart
     @POST("user/update")
     Call<ResponseUUID> update(@Body UpdateUser updateUser);
     @POST("user/forgot-password")

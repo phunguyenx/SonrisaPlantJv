@@ -62,15 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
-        dataBinding.btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         dataBinding.edtPasswordRegister.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.remove_red_eye_24, 0);
         dataBinding.edtPasswordRegister.setOnTouchListener(new View.OnTouchListener() {
@@ -117,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.putExtra("password_register", registerViewModel.getRegister().Password);
                         }
                         startActivity(intent);
+                        finish();
                         break;
                     }catch (Exception e){
                         Log.e("Register_Activity", e.getMessage());

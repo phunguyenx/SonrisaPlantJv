@@ -141,9 +141,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
+                    android:paddingStart="1dp"
                     android:id="@+id/tv_sign_up"
                     android:textColor="@color/green_app_light"
-                    android:onClick="@()={}"
                     android:text="@string/sign_up"/>
 
             </LinearLayout>

@@ -129,12 +129,12 @@
                     android:textSize="16sp"
                     android:text="@string/already_have_an_account"/>
                 <TextView
+                    android:paddingStart="1dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:id="@+id/tv_sign_in"
                     android:textColor="@color/green_app_light"
-                    android:onClick="@()={}"
                     android:text="@string/sign_in"/>
 
             </LinearLayout>

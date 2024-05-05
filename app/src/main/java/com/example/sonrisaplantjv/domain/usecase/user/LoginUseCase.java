@@ -48,12 +48,12 @@ public class LoginUseCase {
                         callback.onFailure(loginResponse.getValue().getMessage());
                         return;
                     }
-                    SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.SHARED_PREFERENCES, Context.MODE_PRIVATE);
                     String accessToken = "Bearer " + loginResponse.getValue().getData().accessToken;
                     String refreshToken = loginResponse.getValue().getData().refreshToken;
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("access_token", accessToken);
-                    editor.putString("refresh_token", refreshToken);
+                    editor.putString(Constant.SP_ACCESS_TOKEN, accessToken);
+                    editor.putString(Constant.SP_REFRESH_TOKEN, refreshToken);
                     editor.apply();
                     callback.onSuccess();
                 }catch (Exception e){

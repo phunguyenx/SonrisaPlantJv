@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="FillProfileViewModel"
+            type="com.example.sonrisaplantjv.presentation.viewmodels.FillFrofileViewModel" />
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_fill_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.activity.FillProfileActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <include layout="@layout/toolbar"
+                android:id="@+id/tool_bar_fill_profile"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="160dp"
+                android:layout_height="160dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/im_fill_avatar"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:background="@color/green_app_light_2"
+                    android:foregroundGravity="center"
+                    android:padding="8dp"
+                    android:src="@drawable/baseline_person_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.2"
+                    app:shapeAppearanceOverlay="@style/circular" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:focusable="true"
+                    android:id="@+id/btn_uploadImage"
+                    android:contentDescription="@string/upload_image"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_photo_camera_24"
+                    app:backgroundTint="@color/green_app_light_3"
+                    app:layout_constraintBottom_toBottomOf="@+id/im_fill_avatar"
+                    app:layout_constraintEnd_toEndOf="@+id/im_fill_avatar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/round_corner"
+                android:hint="@string/full_name"
+                android:text="@={FillProfileViewModel.updateUser.Name}"
+                android:id="@+id/edt_fill_full_name"
+                android:inputType="textEmailAddress"
+                android:padding="16dp"
+                android:textSize="20sp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/round_corner"
+                android:hint="@string/phone_number"
+                android:text="@={FillProfileViewModel.updateUser.PhoneNumber}"
+                android:id="@+id/edt_fill_phone"
+                android:inputType="phone"
+                android:padding="16dp"
+                android:textSize="20sp" />
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:background="@drawable/round_corner"-->
+<!--                android:hint="@string/date_of_birth"-->
+<!--                android:text="@={FillProfileViewModel.updateUser.DateOfBirth}"-->
+<!--                android:id="@+id/edt_fill_date_of_birth"-->
+<!--                android:inputType="date"-->
+<!--                android:padding="16dp"-->
+<!--                android:textSize="20sp" />-->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/round_corner"
+                android:hint="@string/address"
+                android:text="@={FillProfileViewModel.updateUser.Address}"
+                android:id="@+id/edt_fill_address"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:id="@+id/btn_continue_fill_profile"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:text="@string/continue_fill"
+                android:onClick="@{() -> FillProfileViewModel.clickContinue()}"
+                android:background="@drawable/round_corner_button"
+                app:backgroundTint="@color/green_app_light"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

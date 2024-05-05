@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
 
     <application
         android:allowBackup="true"
@@ -16,21 +18,29 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.activity.HomeActivity"
+            android:name=".presentation.ui.activity.CreatePinActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.activity.RegisterActivity"
+            android:name=".presentation.ui.activity.FillProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".presentation.ui.activity.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.activity.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.activity.LoginActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

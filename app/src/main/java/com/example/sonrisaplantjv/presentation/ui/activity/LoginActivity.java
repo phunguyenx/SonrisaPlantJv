@@ -19,6 +19,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sonrisaplantjv.R;
+import com.example.sonrisaplantjv.common.Constant;
 import com.example.sonrisaplantjv.databinding.ActivityLoginBinding;
 import com.example.sonrisaplantjv.domain.utils.LoginStatus;
 import com.example.sonrisaplantjv.presentation.viewmodels.LoginViewModel;
@@ -52,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void init(){
         dataBinding.toolBar.tvToolbar.setText("");
-
         Intent intent = getIntent();
         if (intent.getBooleanExtra("is_signup_success", false)){
             Toast.makeText(this, "Sign up success", Toast.LENGTH_SHORT).show();
@@ -64,11 +64,12 @@ public class LoginActivity extends AppCompatActivity {
             dataBinding.edtPasswordLogin.setBackground(getDrawable(R.drawable.round_corner_color1));
             loginViewModel.getAuthenticate().setPassword(intent.getStringExtra("password_register"));
         }
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        boolean isLogout = sharedPreferences.getBoolean("isLogout", false);
-        String email = sharedPreferences.getString("email", null);
-        String password = sharedPreferences.getString("password", null);
-        if (email != null && password != null && isLogout){
+        SharedPreferences sharedPreferences = getSharedPreferences(Constant.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        boolean isLogOut = sharedPreferences.getBoolean(Constant.SP_IS_LOG_OUT, false);
+        boolean isRemember = sharedPreferences.getBoolean(Constant.SP_IS_REMEMBER, false);
+        String email = sharedPreferences.getString(Constant.SP_EMAIl, null);
+        String password = sharedPreferences.getString(Constant.SP_PASSWORD, null);
+        if (email != null && password != null && isLogOut && isRemember){
             dataBinding.edtEmailLogin.setBackground(getDrawable(R.drawable.round_corner_color1));
             loginViewModel.getAuthenticate().setEmail(intent.getStringExtra("email_register"));
 
@@ -87,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -126,15 +128,24 @@ public class LoginActivity extends AppCompatActivity {
             switch (status) {
                 case LoginStatus.loginSuccess:
                     try {
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getSharedPreferences(Constant.SHARED_PREFERENCES, Context.MODE_PRIVATE);
                         String email = loginViewModel.getAuthenticate().getEmail();
                         String password = loginViewModel.getAuthenticate().getPassword();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("email", email);
-                        editor.putString("password", password);
+                        editor.putString(Constant.SP_EMAIl, email);
+                        editor.putString(Constant.SP_PASSWORD, password);
+                        editor.putBoolean(Constant.SP_IS_REMEMBER, loginViewModel.isRememberMe());
                         editor.apply();
+
+                        boolean isFirstLogin = sharedPreferences.getBoolean(Constant.SP_FIRST_LOGIN, true);
+                        Intent intent;
+                        if (isFirstLogin){
+                            intent = new Intent(LoginActivity.this, FillProfileActivity.class);
+                        }else {
+                            intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        }
                         startActivity(intent);
+                        finish();
                         break;
                     }catch (Exception e){
                         Log.e("LoginActivity", e.getMessage());

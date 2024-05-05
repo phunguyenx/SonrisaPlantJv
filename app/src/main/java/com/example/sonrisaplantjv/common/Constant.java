@@ -10,6 +10,14 @@ import org.json.JSONObject;
 import retrofit2.Response;
 
 public class Constant {
+    public static final String SHARED_PREFERENCES  = "SP_1";
+    public static final String SP_EMAIl  = "EMAIL";
+    public static final String SP_PASSWORD  = "PASSWORD";
+    public static final String SP_ACCESS_TOKEN  = "ACCESS TOKEN";
+    public static final String SP_REFRESH_TOKEN  = "REFRESH TOKEN";
+    public static final String SP_FIRST_LOGIN  = "FIRST LOGIN";
+    public static final String SP_IS_LOG_OUT  = "LOG OUT";
+    public static final String SP_IS_REMEMBER  = "REMEMBER ME";
     public static void showMessageError(Response response, Context context){
         if (!response.isSuccessful() && response.errorBody() != null) {
             try {
