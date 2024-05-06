@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -24,6 +26,7 @@ import com.example.sonrisaplantjv.data.CurrentContext;
 import com.example.sonrisaplantjv.databinding.ActivityLoginBinding;
 import com.example.sonrisaplantjv.domain.utils.LoginStatus;
 import com.example.sonrisaplantjv.presentation.ui.components.Dialog;
+import com.example.sonrisaplantjv.presentation.ui.components.ProgressDialog;
 import com.example.sonrisaplantjv.presentation.viewmodels.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -31,11 +34,12 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
 
     private boolean isPasswordVisible = false;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-
+        progressDialog = new ProgressDialog(this);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         dataBinding = DataBindingUtil.setContentView(LoginActivity.this, R.layout.activity_login);
@@ -103,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
                 loginViewModel.setRememberMe(false);
             }
         });
-
         dataBinding.edtPasswordLogin.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.remove_red_eye_24, 0);
         dataBinding.edtPasswordLogin.setOnTouchListener(new View.OnTouchListener() {
             final int DRAWABLE_RIGHT = 2;
@@ -136,7 +139,14 @@ public class LoginActivity extends AppCompatActivity {
         isPasswordVisible = !isPasswordVisible;
     }
     private void loginstatus() {
-        Dialog.showProgressDialog(this, "Please wait...");
+        loginViewModel.getShowDialogStatus().observe(this, s ->{
+            if(s){
+                progressDialog.show();
+            }else {
+                progressDialog.dismiss();
+            }
+        });
+
         loginViewModel.getLoginStatus().observe(this, status -> {
             switch (status) {
                 case LoginStatus.loginSuccess:
@@ -157,7 +167,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         startActivity(intent);
                         finish();
-                        break;
                     }catch (Exception e){
                         Log.e("LoginActivity", e.getMessage());
                     }
@@ -181,6 +190,5 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-        Dialog.dismissProgressDialog();
     }
 }

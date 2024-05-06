@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.sonrisaplantjv.R;
 import com.example.sonrisaplantjv.databinding.ActivityRegisterBinding;
 import com.example.sonrisaplantjv.domain.utils.RegisterStatus;
+import com.example.sonrisaplantjv.presentation.ui.components.ProgressDialog;
 import com.example.sonrisaplantjv.presentation.viewmodels.RegisterViewModel;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -101,6 +102,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerStatus() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        registerViewModel.getShowDialogStatus().observe(this, s ->{
+            if(s){
+                progressDialog.show();
+            }else {
+                progressDialog.dismiss();
+            }
+        });
         registerViewModel.getRegisterStatus().observe(this, status -> {
             switch (status) {
                 case RegisterStatus.registerSuccess:

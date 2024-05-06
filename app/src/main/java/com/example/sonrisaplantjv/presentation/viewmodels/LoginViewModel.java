@@ -3,6 +3,8 @@ package com.example.sonrisaplantjv.presentation.viewmodels;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,14 +19,16 @@ import com.example.sonrisaplantjv.domain.usecase.user.CallBackResponse;
 import com.example.sonrisaplantjv.domain.usecase.user.LoginUseCase;
 import com.example.sonrisaplantjv.domain.utils.LoginStatus;
 import com.example.sonrisaplantjv.domain.utils.ValidatorUtils;
+import com.example.sonrisaplantjv.presentation.ui.components.ProgressDialog;
 
 public class LoginViewModel extends AndroidViewModel {
     private final LoginUseCase loginUseCase;
     private Authenticate authenticate = new Authenticate();
     private boolean rememberMe = false;
     private Context context;
-    private MutableLiveData<Integer> loginStatus = new MutableLiveData<>(LoginStatus.loginFails);
+    private MutableLiveData<Integer> loginStatus = new MutableLiveData<>();
 
+    private MutableLiveData<Boolean> showDialogStatus = new MutableLiveData<>();
 
 
     private MutableLiveData<Boolean> isPasswordVisible = new MutableLiveData<>(false);
@@ -36,21 +40,25 @@ public class LoginViewModel extends AndroidViewModel {
     }
     public void clickLogin(){
         try {
+
             if (validateData()) {
+                showDialogStatus.setValue(true);
                 loginUseCase.execute(authenticate, new CallBackResponse() {
                     @Override
                     public void onSuccess() {
                         loginStatus.setValue(LoginStatus.loginSuccess);
+                        showDialogStatus.setValue(false);
                     }
-
                     @Override
                     public void onFailure(String errorMessage) {
+                        showDialogStatus.setValue(false);
                         Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
                         loginStatus.setValue(LoginStatus.loginFails);
                     }
                 });
             }
         } catch (Exception ex) {
+            showDialogStatus.setValue(false);
             Log.e("Login viewmodel",ex.getMessage());
         }
     }
@@ -86,5 +94,13 @@ public class LoginViewModel extends AndroidViewModel {
 
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
+    }
+
+    public MutableLiveData<Boolean> getShowDialogStatus() {
+        return showDialogStatus;
+    }
+
+    public void setShowDialogStatus(MutableLiveData<Boolean> showDialogStatus) {
+        this.showDialogStatus = showDialogStatus;
     }
 }

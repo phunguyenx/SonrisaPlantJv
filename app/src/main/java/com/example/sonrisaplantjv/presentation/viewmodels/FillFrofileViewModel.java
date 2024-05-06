@@ -31,6 +31,7 @@ public class FillFrofileViewModel extends AndroidViewModel {
     private UpdateUser updateUser = new UpdateUser();
     private UpdateUserRequest updateUserRequest = new UpdateUserRequest();
     private Context context;
+    private MutableLiveData<Boolean> showDialogStatus = new MutableLiveData<>();
 
     private MutableLiveData<Integer> updateUserStatus = new MutableLiveData<>();
 
@@ -42,7 +43,7 @@ public class FillFrofileViewModel extends AndroidViewModel {
     }
     public void clickContinue(){
         try {
-
+            showDialogStatus.setValue(true);
             updateUserRequest.Name = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.Name == null? "": updateUser.Name);
             updateUserRequest.PhoneNumber = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.PhoneNumber == null? "": updateUser.PhoneNumber);
             updateUserRequest.Address = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.Address == null? "": updateUser.Address);
@@ -51,14 +52,17 @@ public class FillFrofileViewModel extends AndroidViewModel {
                 @Override
                 public void onSuccess() {
                     updateUserStatus.setValue(UpdateUserStatus.Success);
+                    showDialogStatus.setValue(false);
                 }
                 @Override
                 public void onFailure(String errorMessage) {
+                    showDialogStatus.setValue(false);
                     updateUserStatus.setValue(UpdateUserStatus.Fails);
                     Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception ex) {
+            showDialogStatus.setValue(false);
             Log.e("fill profile viewmodel",ex.getMessage());
         }
     }
@@ -79,5 +83,13 @@ public class FillFrofileViewModel extends AndroidViewModel {
 
     public void setUpdateUserStatus(MutableLiveData<Integer> updateUserStatus) {
         this.updateUserStatus = updateUserStatus;
+    }
+
+    public MutableLiveData<Boolean> getShowDialogStatus() {
+        return showDialogStatus;
+    }
+
+    public void setShowDialogStatus(MutableLiveData<Boolean> showDialogStatus) {
+        this.showDialogStatus = showDialogStatus;
     }
 }

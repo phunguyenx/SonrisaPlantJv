@@ -28,6 +28,7 @@ public class CreatePinViewModel extends AndroidViewModel {
     private ValidatePin validatePin = new ValidatePin();
     private Context context;
     private MutableLiveData<Integer> createPinStatus = new MutableLiveData<>();
+    private MutableLiveData<Boolean> showDialogStatus = new MutableLiveData<>();
 
     public CreatePinViewModel(@NonNull Application application) {
         super(application);
@@ -45,18 +46,25 @@ public class CreatePinViewModel extends AndroidViewModel {
                 Toast.makeText(context, "Lack Of Input", Toast.LENGTH_SHORT).show();
                 return;
             }
+            showDialogStatus.setValue(true);
+
             createPinUseCase.execute(validatePin, new CallBackResponse() {
                 @Override
                 public void onSuccess() {
                     createPinStatus.setValue(CreatePinStatus.Success);
+                    showDialogStatus.setValue(false);
+
                 }
                 @Override
                 public void onFailure(String errorMessage) {
+                    showDialogStatus.setValue(false);
                     createPinStatus.setValue(CreatePinStatus.Fails);
                     Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+
                 }
             });
         } catch (Exception ex) {
+            showDialogStatus.setValue(false);
             Log.e("create pin viewmodel",ex.getMessage());
         }
     }
@@ -75,5 +83,13 @@ public class CreatePinViewModel extends AndroidViewModel {
 
     public void setCreatePinStatus(MutableLiveData<Integer> createPinStatus) {
         this.createPinStatus = createPinStatus;
+    }
+
+    public MutableLiveData<Boolean> getShowDialogStatus() {
+        return showDialogStatus;
+    }
+
+    public void setShowDialogStatus(MutableLiveData<Boolean> showDialogStatus) {
+        this.showDialogStatus = showDialogStatus;
     }
 }

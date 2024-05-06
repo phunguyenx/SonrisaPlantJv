@@ -25,6 +25,7 @@ public class RegisterViewModel extends AndroidViewModel {
 
     private MutableLiveData<Integer> registerStatus = new MutableLiveData<>();
     private MutableLiveData<Boolean> isPasswordVisible = new MutableLiveData<>(false);
+    private MutableLiveData<Boolean> showDialogStatus = new MutableLiveData<>();
 
     public RegisterViewModel(@NonNull Application application) {
         super(application);
@@ -36,21 +37,24 @@ public class RegisterViewModel extends AndroidViewModel {
     public void clickRegister(){
         try {
             if (validateData()) {
+                showDialogStatus.setValue(true);
                 registerUseCase.execute(register, new CallBackResponse() {
                     @Override
                     public void onSuccess() {
                         registerStatus.setValue(RegisterStatus.registerSuccess);
-
+                        showDialogStatus.setValue(false);
                     }
 
                     @Override
                     public void onFailure(String errorMessage) {
+                        showDialogStatus.setValue(false);
                         registerStatus.setValue(RegisterStatus.registerFails);
                         Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         } catch (Exception ex) {
+            showDialogStatus.setValue(false);
             Log.e("register viewmodel",ex.getMessage());
         }
     }
@@ -107,5 +111,13 @@ public class RegisterViewModel extends AndroidViewModel {
 
     public void setIsRememberMe(MutableLiveData<Boolean> isRememberMe) {
         this.isRememberMe = isRememberMe;
+    }
+
+    public MutableLiveData<Boolean> getShowDialogStatus() {
+        return showDialogStatus;
+    }
+
+    public void setShowDialogStatus(MutableLiveData<Boolean> showDialogStatus) {
+        this.showDialogStatus = showDialogStatus;
     }
 }

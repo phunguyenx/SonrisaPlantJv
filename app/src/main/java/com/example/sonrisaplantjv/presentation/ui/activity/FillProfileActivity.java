@@ -41,6 +41,7 @@ import com.example.sonrisaplantjv.domain.utils.FileHelper;
 import com.example.sonrisaplantjv.domain.utils.RealPathUtil;
 import com.example.sonrisaplantjv.domain.utils.RegisterStatus;
 import com.example.sonrisaplantjv.domain.utils.UpdateUserStatus;
+import com.example.sonrisaplantjv.presentation.ui.components.ProgressDialog;
 import com.example.sonrisaplantjv.presentation.viewmodels.FillFrofileViewModel;
 import com.example.sonrisaplantjv.presentation.viewmodels.RegisterViewModel;
 
@@ -190,6 +191,14 @@ public class FillProfileActivity extends AppCompatActivity {
         return result;
     }
     private void updateUserStatus() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        fillFrofileViewModel.getShowDialogStatus().observe(this, s ->{
+            if(s){
+                progressDialog.show();
+            }else {
+                progressDialog.dismiss();
+            }
+        });
         fillFrofileViewModel.getUpdateUserStatus().observe(this, status -> {
             switch (status) {
                 case UpdateUserStatus.Success:

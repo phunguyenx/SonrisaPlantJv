@@ -26,6 +26,7 @@ import com.example.sonrisaplantjv.databinding.ActivityCreatePinBinding;
 import com.example.sonrisaplantjv.domain.dto.User.ValidatePin;
 import com.example.sonrisaplantjv.domain.utils.CreatePinStatus;
 import com.example.sonrisaplantjv.domain.utils.UpdateUserStatus;
+import com.example.sonrisaplantjv.presentation.ui.components.ProgressDialog;
 import com.example.sonrisaplantjv.presentation.viewmodels.CreatePinViewModel;
 import com.example.sonrisaplantjv.presentation.viewmodels.FillFrofileViewModel;
 
@@ -87,6 +88,14 @@ public class CreatePinActivity extends AppCompatActivity {
         });
     }
     private void createPinStatus() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        createPinViewModel.getShowDialogStatus().observe(this, s ->{
+            if(s){
+                progressDialog.show();
+            }else {
+                progressDialog.dismiss();
+            }
+        });
         createPinViewModel.getCreatePinStatus().observe(this, status -> {
             switch (status) {
                 case CreatePinStatus.Success:
