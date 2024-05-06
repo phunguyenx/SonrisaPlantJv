@@ -8,6 +8,7 @@ android {
     //view bindding
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
     viewBinding {
         enable = true
@@ -70,5 +71,8 @@ dependencies {
 
     //image picker
 
+
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
 }

@@ -15,15 +15,21 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.sonrisaplantjv.data.repositoryImpl.UserRepositoryImpl;
 import com.example.sonrisaplantjv.domain.dto.User.Register;
 import com.example.sonrisaplantjv.domain.dto.User.UpdateUser;
+import com.example.sonrisaplantjv.domain.dto.User.UpdateUserRequest;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
 import com.example.sonrisaplantjv.domain.usecase.user.CallBackResponse;
 import com.example.sonrisaplantjv.domain.usecase.user.RegisterUseCase;
 import com.example.sonrisaplantjv.domain.usecase.user.UpdateFrofileUseCase;
 import com.example.sonrisaplantjv.domain.utils.RegisterStatus;
+import com.example.sonrisaplantjv.domain.utils.UpdateUserStatus;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class FillFrofileViewModel extends AndroidViewModel {
     private final UpdateFrofileUseCase updateFrofileUseCase;
     private UpdateUser updateUser = new UpdateUser();
+    private UpdateUserRequest updateUserRequest = new UpdateUserRequest();
     private Context context;
 
     private MutableLiveData<Integer> updateUserStatus = new MutableLiveData<>();
@@ -36,14 +42,19 @@ public class FillFrofileViewModel extends AndroidViewModel {
     }
     public void clickContinue(){
         try {
-            updateFrofileUseCase.execute(updateUser, new CallBackResponse() {
+
+            updateUserRequest.Name = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.Name == null? "": updateUser.Name);
+            updateUserRequest.PhoneNumber = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.PhoneNumber == null? "": updateUser.PhoneNumber);
+            updateUserRequest.Address = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.Address == null? "": updateUser.Address);
+            updateUserRequest.Avatar = updateUser.Avatar;
+            updateFrofileUseCase.execute(updateUserRequest, new CallBackResponse() {
                 @Override
                 public void onSuccess() {
-                    updateUserStatus.setValue(RegisterStatus.registerSuccess);
+                    updateUserStatus.setValue(UpdateUserStatus.Success);
                 }
                 @Override
                 public void onFailure(String errorMessage) {
-                    updateUserStatus.setValue(RegisterStatus.registerFails);
+                    updateUserStatus.setValue(UpdateUserStatus.Fails);
                     Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
                 }
             });

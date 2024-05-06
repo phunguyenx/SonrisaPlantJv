@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -36,29 +37,46 @@ import com.example.sonrisaplantjv.R;
 import com.example.sonrisaplantjv.common.Constant;
 import com.example.sonrisaplantjv.databinding.ActivityFillProfileBinding;
 import com.example.sonrisaplantjv.databinding.ActivityRegisterBinding;
+import com.example.sonrisaplantjv.domain.utils.FileHelper;
+import com.example.sonrisaplantjv.domain.utils.RealPathUtil;
 import com.example.sonrisaplantjv.domain.utils.RegisterStatus;
 import com.example.sonrisaplantjv.domain.utils.UpdateUserStatus;
 import com.example.sonrisaplantjv.presentation.viewmodels.FillFrofileViewModel;
 import com.example.sonrisaplantjv.presentation.viewmodels.RegisterViewModel;
 
+import java.io.File;
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
 public class FillProfileActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_GALLERY = 100;
     ActivityFillProfileBinding dataBinding;
     private FillFrofileViewModel fillFrofileViewModel;
+    private Uri mUri;
 
     private final ActivityResultLauncher<Intent> mIntentActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult o) {
-                    Log.e("upload image fill", "on activity result");
                     if(o.getResultCode() == Activity.RESULT_OK){
+                        try {
                         Intent data = o.getData();
                         if (data == null) return;
                         Uri uri = data.getData();
-                        try {
+                        mUri = uri;
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             dataBinding.imFillAvatar.setImageBitmap(bitmap);
+                            if(mUri != null){
+//                                String strRealPath = getRealPathFromURI(uri);
+                                File file = new File(FileHelper.getRealPathFromURI(FillProfileActivity.this, uri));
+                                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+                                MultipartBody.Part muPart = MultipartBody.Part.createFormData("avatar", file.getName(), requestBody);
+                                fillFrofileViewModel.getUpdateUser().Avatar = muPart;
+                            }
                         }catch (Exception e){
                             Log.e("upload image fill", e.getMessage());
                         }
@@ -87,6 +105,7 @@ public class FillProfileActivity extends AppCompatActivity {
 
         });
         init();
+        updateUserStatus();
     }
 
     private void init(){
@@ -100,7 +119,6 @@ public class FillProfileActivity extends AppCompatActivity {
         dataBinding.btnUploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(FillProfileActivity.this, "cc", Toast.LENGTH_SHORT).show();
                 clickUploadImage();
             }
         });
@@ -124,7 +142,6 @@ public class FillProfileActivity extends AppCompatActivity {
                 requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_CODE_GALLERY);
             }
         }
-
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -147,13 +164,39 @@ public class FillProfileActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this,
                 new String[]{permissionName}, permissionRequestCode);
     }
+
+    private String getRealPathFromURI(Uri contentURI)
+    {
+        String result = null;
+        try {
+            Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+
+            if (cursor == null)
+            { // Source is Dropbox or other similar local file path
+                result = contentURI.getPath();
+            }
+            else
+            {
+                if(cursor.moveToFirst())
+                {
+                    int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    result = cursor.getString(idx);
+                }
+                cursor.close();
+            }
+        }catch (Exception e){
+            Log.e("get real path", e.getMessage());
+        }
+        return result;
+    }
     private void updateUserStatus() {
         fillFrofileViewModel.getUpdateUserStatus().observe(this, status -> {
             switch (status) {
                 case UpdateUserStatus.Success:
                     try {
+                        Toast.makeText(FillProfileActivity.this, "Success", Toast.LENGTH_SHORT).show();
                         SharedPreferences sharedPreferences = getSharedPreferences(Constant.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-                        boolean isFirstLogin = sharedPreferences.getBoolean(Constant.SP_FIRST_LOGIN, false);
+                        boolean isFirstLogin = sharedPreferences.getBoolean(Constant.SP_FIRST_LOGIN, true);
                         if (isFirstLogin){
                             Intent intent = new Intent(FillProfileActivity.this, CreatePinActivity.class);
                             startActivity(intent);

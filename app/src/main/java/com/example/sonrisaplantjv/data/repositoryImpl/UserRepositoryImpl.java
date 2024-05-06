@@ -15,6 +15,7 @@ import com.example.sonrisaplantjv.domain.dto.User.ForgotPassword;
 import com.example.sonrisaplantjv.domain.dto.User.LoginResponse;
 import com.example.sonrisaplantjv.domain.dto.User.Register;
 import com.example.sonrisaplantjv.domain.dto.User.UpdateUser;
+import com.example.sonrisaplantjv.domain.dto.User.UpdateUserRequest;
 import com.example.sonrisaplantjv.domain.dto.User.UserDto;
 import com.example.sonrisaplantjv.domain.dto.User.ValidatePin;
 import com.example.sonrisaplantjv.domain.dto.User.ValidateToken;
@@ -36,8 +37,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Call<ResponseUUID> Update(UpdateUser updateUser) {
-        return RetrofitInstance.getRetrofitInstance().create(IUserService.class).update(updateUser);
+    public Call<ResponseUUID> Update(UpdateUserRequest updateUser) {
+        return RetrofitInstance.getRetrofitInstance().create(IUserService.class).update(updateUser.Name, updateUser.PhoneNumber, updateUser.Address, updateUser.Avatar);
     }
 
     @Override

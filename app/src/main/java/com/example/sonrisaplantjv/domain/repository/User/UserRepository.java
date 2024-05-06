@@ -13,6 +13,7 @@ import com.example.sonrisaplantjv.domain.dto.User.ForgotPassword;
 import com.example.sonrisaplantjv.domain.dto.User.LoginResponse;
 import com.example.sonrisaplantjv.domain.dto.User.Register;
 import com.example.sonrisaplantjv.domain.dto.User.UpdateUser;
+import com.example.sonrisaplantjv.domain.dto.User.UpdateUserRequest;
 import com.example.sonrisaplantjv.domain.dto.User.UserDto;
 import com.example.sonrisaplantjv.domain.dto.User.ValidatePin;
 import com.example.sonrisaplantjv.domain.dto.User.ValidateToken;
@@ -26,7 +27,7 @@ import retrofit2.Call;
 
 public interface UserRepository {
     public Call<UserDto> GetById(UUID id);
-    public Call<ResponseUUID> Update(UpdateUser updateUser);
+    public Call<ResponseUUID> Update(UpdateUserRequest updateUser);
     public Call<ResponseBoolean> ForgotPassword(ForgotPassword input);
     public Call<ResponseBoolean> ChangePassword(ChangePassword input);
     public Call<ResponseBoolean> ChangePinCode(ChangePinCode input);

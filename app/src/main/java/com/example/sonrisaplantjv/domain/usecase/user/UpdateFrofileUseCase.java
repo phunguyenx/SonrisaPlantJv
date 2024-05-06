@@ -10,6 +10,7 @@ import com.example.sonrisaplantjv.common.Constant;
 import com.example.sonrisaplantjv.domain.dto.ResponseUUID;
 import com.example.sonrisaplantjv.domain.dto.User.Register;
 import com.example.sonrisaplantjv.domain.dto.User.UpdateUser;
+import com.example.sonrisaplantjv.domain.dto.User.UpdateUserRequest;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
 
 import retrofit2.Call;
@@ -26,7 +27,7 @@ public class UpdateFrofileUseCase {
         this.context = application.getApplicationContext();
         this.application = application;
     }
-    public void execute(UpdateUser input, CallBackResponse callback){
+    public void execute(UpdateUserRequest input, CallBackResponse callback){
 
         if (input == null){
             callback.onFailure("Invalid input");
