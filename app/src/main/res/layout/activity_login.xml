@@ -73,7 +73,6 @@
                     android:text="@string/remember_me"
                     android:id="@+id/cb_remember_me"
                     android:textSize="16sp"
-                    android:checked="@{LoginViewModel.rememberMe}"
                     android:shadowColor="@color/green_app_light_2"
                     android:textColorHighlight="@color/green_app_light_2"
                     android:padding="8dp"/>

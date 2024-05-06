@@ -46,7 +46,7 @@ public class FillFrofileViewModel extends AndroidViewModel {
             updateUserRequest.Name = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.Name == null? "": updateUser.Name);
             updateUserRequest.PhoneNumber = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.PhoneNumber == null? "": updateUser.PhoneNumber);
             updateUserRequest.Address = RequestBody.create(MediaType.parse("multipart/form-data"), updateUser.Address == null? "": updateUser.Address);
-            updateUserRequest.Avatar = updateUser.Avatar;
+            updateUserRequest.Avatar = updateUser.Avatar == null? null: updateUser.Avatar;
             updateFrofileUseCase.execute(updateUserRequest, new CallBackResponse() {
                 @Override
                 public void onSuccess() {

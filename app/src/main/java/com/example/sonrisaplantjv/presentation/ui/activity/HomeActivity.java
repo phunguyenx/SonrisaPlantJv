@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sonrisaplantjv.R;
+import com.example.sonrisaplantjv.common.Constant;
 import com.example.sonrisaplantjv.databinding.ActivityHomeBinding;
 import com.example.sonrisaplantjv.databinding.ActivityLoginBinding;
 import com.example.sonrisaplantjv.presentation.viewmodels.HomeViewModel;
@@ -38,17 +40,29 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         dataBinding.toolBar.btnArrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        dataBinding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences(Constant.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(Constant.SP_IS_LOG_OUT, true);
+                editor.remove(Constant.SP_ACCESS_TOKEN);
+                editor.remove(Constant.SP_REFRESH_TOKEN);
+                editor.apply();
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
         try {
-            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-            String accessToken = sharedPreferences.getString("access_token", null);
-            String refreshToken = sharedPreferences.getString("refresh_token", null);
+            SharedPreferences sharedPreferences = getSharedPreferences(Constant.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+            String accessToken = sharedPreferences.getString(Constant.SP_ACCESS_TOKEN   , null);
+            String refreshToken = sharedPreferences.getString(Constant.SP_REFRESH_TOKEN, null);
             if (accessToken != null) {
                 // Token đã tồn tại, người dùng đã đăng nhập trước đó
                 // Bạn có thể chuyển họ đến màn hình chính hoặc bất kỳ màn hình nào bạn muốn

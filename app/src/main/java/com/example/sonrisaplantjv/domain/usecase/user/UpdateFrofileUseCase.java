@@ -51,12 +51,14 @@ public class UpdateFrofileUseCase {
                     callback.onSuccess();
                 }catch (Exception e){
                     Log.e("update_profile_use_case"," - > Error    "+ e.getMessage());
+                    callback.onFailure(Constant.MSG_FAIL);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseUUID> call, Throwable t) {
                 Log.d("update_profile_Call"," - > Error    "+ t.getMessage());
+                callback.onFailure(Constant.MSG_FAIL);
             }
         });
     }

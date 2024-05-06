@@ -41,17 +41,17 @@ public interface IUserService {
                               @Part("address") @Nullable RequestBody address,
                               @Part @Nullable MultipartBody.Part avatar);
     @POST("user/forgot-password")
-    Call<ResponseBoolean> forgotPassword(ForgotPassword forgotPassword);
+    Call<ResponseBoolean> forgotPassword(@Body ForgotPassword forgotPassword);
     @POST("user/change-password")
-    Call<ResponseBoolean> changePassword(ChangePassword changePassword);
+    Call<ResponseBoolean> changePassword(@Body ChangePassword changePassword);
     @POST("user/change-pin")
-    Call<ResponseBoolean> changePin(ChangePinCode changePinCode);
+    Call<ResponseBoolean> changePin(@Body ChangePinCode changePinCode);
     @POST("user/create-pin")
-    Call<ResponseBoolean> createPin(ValidatePin validatePin);
+    Call<ResponseBoolean> createPin(@Body ValidatePin validatePin);
     @POST("user/validate-pin")
-    Call<ResponseBoolean> validatePin(ValidatePin validatePin);
+    Call<ResponseBoolean> validatePin(@Body ValidatePin validatePin);
     @POST("user/refresh-token")
-    Call<LoginResponse> refreshToken(ValidateToken validateToken);
+    Call<LoginResponse> refreshToken(@Body ValidateToken validateToken);
     @POST("user/revoke-token")
-    Call<ResponseBoolean> revokeToken(String email);
+    Call<ResponseBoolean> revokeToken(@Body String email);
 }

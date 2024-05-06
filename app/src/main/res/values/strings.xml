@@ -23,4 +23,6 @@
     <string name="upload_image">Upload Image</string>
     <string name="continue_fill">Continue</string>
     <string name="fill_your_profile">Fill Your Profile</string>
+    <string name="add_a_pin">Add a PIN number to make your account more secure</string>
+    <string name="create_new_pin">Create New PIN</string>
 </resources>

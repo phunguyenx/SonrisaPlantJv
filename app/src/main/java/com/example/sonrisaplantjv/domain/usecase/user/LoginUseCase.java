@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.sonrisaplantjv.common.Constant;
+import com.example.sonrisaplantjv.data.CurrentContext;
 import com.example.sonrisaplantjv.domain.dto.User.Authenticate;
 import com.example.sonrisaplantjv.domain.dto.User.LoginResponse;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
@@ -51,18 +52,25 @@ public class LoginUseCase {
                     SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.SHARED_PREFERENCES, Context.MODE_PRIVATE);
                     String accessToken = "Bearer " + loginResponse.getValue().getData().accessToken;
                     String refreshToken = loginResponse.getValue().getData().refreshToken;
+                    Boolean isFirst = loginResponse.getValue().getData().isFirstLogin;
+                    CurrentContext.AccessToken = accessToken;
+                    CurrentContext.RefreshToken = refreshToken;
+                    CurrentContext.IsFirstLogin = isFirst;
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(Constant.SP_ACCESS_TOKEN, accessToken);
                     editor.putString(Constant.SP_REFRESH_TOKEN, refreshToken);
+                    editor.putBoolean(Constant.SP_FIRST_LOGIN, isFirst);
                     editor.apply();
                     callback.onSuccess();
                 }catch (Exception e){
                     Log.e("Login_use_case"," - > Error    "+ e.getMessage());
+                    callback.onFailure(Constant.MSG_FAIL);
                 }
             }
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Log.d("Login_Call"," - > Error    "+ t.getMessage());
+                callback.onFailure(Constant.MSG_FAIL);
             }
         });
     }

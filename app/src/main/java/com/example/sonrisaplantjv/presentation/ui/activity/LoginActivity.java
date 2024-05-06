@@ -20,8 +20,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sonrisaplantjv.R;
 import com.example.sonrisaplantjv.common.Constant;
+import com.example.sonrisaplantjv.data.CurrentContext;
 import com.example.sonrisaplantjv.databinding.ActivityLoginBinding;
 import com.example.sonrisaplantjv.domain.utils.LoginStatus;
+import com.example.sonrisaplantjv.presentation.ui.components.Dialog;
 import com.example.sonrisaplantjv.presentation.viewmodels.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -71,10 +73,11 @@ public class LoginActivity extends AppCompatActivity {
         String password = sharedPreferences.getString(Constant.SP_PASSWORD, null);
         if (email != null && password != null && isLogOut && isRemember){
             dataBinding.edtEmailLogin.setBackground(getDrawable(R.drawable.round_corner_color1));
-            loginViewModel.getAuthenticate().setEmail(intent.getStringExtra("email_register"));
+            loginViewModel.getAuthenticate().setEmail(email);
 
             dataBinding.edtPasswordLogin.setBackground(getDrawable(R.drawable.round_corner_color1));
-            loginViewModel.getAuthenticate().setPassword(intent.getStringExtra("password_register"));
+            loginViewModel.getAuthenticate().setPassword(password);
+            dataBinding.cbRememberMe.setChecked(true);
         }
         dataBinding.toolBar.btnArrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +92,15 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        dataBinding.cbRememberMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dataBinding.cbRememberMe.isChecked()){
+                    loginViewModel.setRememberMe(true);
+                }
+                loginViewModel.setRememberMe(false);
             }
         });
 
@@ -124,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         isPasswordVisible = !isPasswordVisible;
     }
     private void loginstatus() {
+        Dialog.showProgressDialog(this, "Please wait...");
         loginViewModel.getLoginStatus().observe(this, status -> {
             switch (status) {
                 case LoginStatus.loginSuccess:
@@ -134,12 +147,10 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(Constant.SP_EMAIl, email);
                         editor.putString(Constant.SP_PASSWORD, password);
-                        editor.putBoolean(Constant.SP_IS_REMEMBER, loginViewModel.isRememberMe());
+                        editor.putBoolean(Constant.SP_IS_REMEMBER, dataBinding.cbRememberMe.isChecked());
                         editor.apply();
-
-                        boolean isFirstLogin = sharedPreferences.getBoolean(Constant.SP_FIRST_LOGIN, true);
                         Intent intent;
-                        if (isFirstLogin){
+                        if (CurrentContext.IsFirstLogin){
                             intent = new Intent(LoginActivity.this, FillProfileActivity.class);
                         }else {
                             intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -166,10 +177,10 @@ public class LoginActivity extends AppCompatActivity {
                     dataBinding.edtPasswordLogin.requestFocus();
                     break;
                 case LoginStatus.loginFails:
-
                     break;
             }
 
         });
+        Dialog.dismissProgressDialog();
     }
 }

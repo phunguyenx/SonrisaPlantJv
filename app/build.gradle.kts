@@ -75,4 +75,9 @@ dependencies {
     //glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 
+    //progress button
+    implementation ("com.github.razir.progressbutton:progressbutton:2.1.0")
+
+    //pin view
+    implementation ("io.github.chaosleung:pinview:1.4.4")
 }

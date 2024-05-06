@@ -18,6 +18,7 @@ public class Constant {
     public static final String SP_FIRST_LOGIN  = "FIRST LOGIN";
     public static final String SP_IS_LOG_OUT  = "LOG OUT";
     public static final String SP_IS_REMEMBER  = "REMEMBER ME";
+    public static final String MSG_FAIL = "Fail";
     public static void showMessageError(Response response, Context context){
         if (!response.isSuccessful() && response.errorBody() != null) {
             try {

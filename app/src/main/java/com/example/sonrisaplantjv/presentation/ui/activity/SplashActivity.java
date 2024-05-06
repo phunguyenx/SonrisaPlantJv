@@ -47,6 +47,7 @@ public class SplashActivity extends AppCompatActivity {
                             intent = new Intent(SplashActivity.this, HomeActivity.class);
                         }
                         startActivity(intent);
+                        CurrentContext.IsFirstLogin = isFirstLogin;
                         CurrentContext.AccessToken = accessToken;
                         CurrentContext.RefreshToken = refreshToken;
                         finish();

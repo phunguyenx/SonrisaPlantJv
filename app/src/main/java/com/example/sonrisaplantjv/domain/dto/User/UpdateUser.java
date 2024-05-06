@@ -13,13 +13,13 @@ import retrofit2.http.Part;
 
 public class UpdateUser {
     @Nullable
-    public String Name;
+    public String Name = null;
     @Nullable
-    public String PhoneNumber;
+    public String PhoneNumber = null;
     @Nullable
     public LocalDateTime DateOfBirth;
     @Nullable
-    public String Address;
+    public String Address = null;
     @Nullable
-    public MultipartBody.Part Avatar;
+    public MultipartBody.Part Avatar = null;
 }

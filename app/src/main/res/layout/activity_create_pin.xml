@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.activity.CreatePinActivity">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+<layout>
+    <data>
+        <variable
+            name="CreatePinViewModel"
+            type="com.example.sonrisaplantjv.presentation.viewmodels.CreatePinViewModel" />
+    </data>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_create_pin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_app_light_1"
+        tools:context=".presentation.ui.activity.CreatePinActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/layout_create_pin_1"
+            android:orientation="vertical">
+            <include layout="@layout/toolbar"
+                android:id="@+id/tool_bar_create_pin"/>
+            <TextView
+                android:layout_marginTop="120dp"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:text="@string/add_a_pin"
+                />
+            <com.chaos.view.PinView
+                android:id="@+id/pv_create_pin"
+                android:layout_marginTop="32dp"
+                android:padding="16dp"
+                style="@style/PinWidget.PinView"
+                android:inputType="number"
+                app:itemWidth="72dp"
+                app:itemHeight="72dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:itemBackground="@color/green_app_light_3"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:itemRadius="16dp"
+                app:itemSpacing="8dp"/>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:id="@+id/btn_continue_create_pin"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="16dp"
+            android:layout_height="wrap_content"
+            android:text="@string/continue_fill"
+            android:onClick="@{() -> CreatePinViewModel.clickContinue()}"
+            android:background="@drawable/round_corner_button"
+            app:backgroundTint="@color/green_app_light"
+            />
+    </RelativeLayout>
+</layout>
