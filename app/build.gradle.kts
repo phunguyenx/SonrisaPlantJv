@@ -80,4 +80,11 @@ dependencies {
 
     //pin view
     implementation ("io.github.chaosleung:pinview:1.4.4")
+    //picasso
+    implementation ("com.squareup.picasso:picasso:2.8")
+
+    //okhttp3
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+
+
 }

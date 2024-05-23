@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
+        android:id="@+id/layout_toolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         tools:ignore="UselessParent">
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="16dp"
             android:id="@+id/btn_arrow_back"
             android:src="@drawable/arrow_back_32"
@@ -18,13 +19,24 @@
         <TextView
             android:id="@+id/tv_toolbar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_toEndOf="@+id/btn_arrow_back"
             android:paddingTop="16sp"
             android:paddingBottom="16dp"
             android:text="@string/app_name"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
+        <TextView
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/btn_search_toolBar"
+            android:background="@drawable/baseline_search_24"
+            android:layout_alignParentEnd="true"/>
+
     </RelativeLayout>
+
 </RelativeLayout>

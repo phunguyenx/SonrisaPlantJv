@@ -2,16 +2,15 @@ package com.example.sonrisaplantjv.domain.usecase.user;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.sonrisaplantjv.common.Constant;
 import com.example.sonrisaplantjv.domain.dto.ResponseBoolean;
-import com.example.sonrisaplantjv.domain.dto.User.LoginResponse;
 import com.example.sonrisaplantjv.domain.dto.User.ValidatePin;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
+import com.example.sonrisaplantjv.domain.usecase.CallBackResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

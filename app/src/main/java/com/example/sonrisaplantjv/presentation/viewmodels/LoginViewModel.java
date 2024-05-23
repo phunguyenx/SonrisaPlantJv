@@ -3,8 +3,6 @@ package com.example.sonrisaplantjv.presentation.viewmodels;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,11 +13,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.sonrisaplantjv.data.repositoryImpl.UserRepositoryImpl;
 import com.example.sonrisaplantjv.domain.dto.User.Authenticate;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
-import com.example.sonrisaplantjv.domain.usecase.user.CallBackResponse;
+import com.example.sonrisaplantjv.domain.usecase.CallBackResponse;
 import com.example.sonrisaplantjv.domain.usecase.user.LoginUseCase;
 import com.example.sonrisaplantjv.domain.utils.LoginStatus;
 import com.example.sonrisaplantjv.domain.utils.ValidatorUtils;
-import com.example.sonrisaplantjv.presentation.ui.components.ProgressDialog;
 
 public class LoginViewModel extends AndroidViewModel {
     private final LoginUseCase loginUseCase;

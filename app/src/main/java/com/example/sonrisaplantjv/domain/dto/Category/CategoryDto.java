@@ -5,8 +5,13 @@ import com.example.sonrisaplantjv.common.ActionResponse;
 import java.util.Collection;
 import java.util.UUID;
 
-public class CategoryDto extends ActionResponse<CategoryDto> {
-    public UUID Id;
-    public String Name;
-    public Collection<PlantImage> Plants;
+public class CategoryDto{
+    public UUID id;
+    public String name;
+    public CategoryDto(String name) {
+        this.name = name;
+    }
+
+    public CategoryDto() {
+    }
 }

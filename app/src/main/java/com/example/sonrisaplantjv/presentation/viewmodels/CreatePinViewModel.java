@@ -10,18 +10,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.sonrisaplantjv.data.repositoryImpl.UserRepositoryImpl;
-import com.example.sonrisaplantjv.domain.dto.User.UpdateUser;
-import com.example.sonrisaplantjv.domain.dto.User.UpdateUserRequest;
 import com.example.sonrisaplantjv.domain.dto.User.ValidatePin;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
-import com.example.sonrisaplantjv.domain.usecase.user.CallBackResponse;
+import com.example.sonrisaplantjv.domain.usecase.CallBackResponse;
 import com.example.sonrisaplantjv.domain.usecase.user.CreatePinUseCase;
-import com.example.sonrisaplantjv.domain.usecase.user.UpdateFrofileUseCase;
 import com.example.sonrisaplantjv.domain.utils.CreatePinStatus;
-import com.example.sonrisaplantjv.domain.utils.UpdateUserStatus;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 
 public class CreatePinViewModel extends AndroidViewModel {
     private final CreatePinUseCase createPinUseCase;

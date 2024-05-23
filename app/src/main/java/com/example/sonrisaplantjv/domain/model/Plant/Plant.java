@@ -13,8 +13,10 @@ public class Plant {
     public String Description;
     public String Image;
     public BigDecimal RatingPoint;
-    public UUID CategoryId;
 
+    public UUID CategoryId;
+    public int QuantitySold;
+    public boolean IsLove;
     public Plant() {
     }
 

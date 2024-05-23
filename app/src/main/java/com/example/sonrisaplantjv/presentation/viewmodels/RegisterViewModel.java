@@ -13,7 +13,7 @@ import com.example.sonrisaplantjv.data.repositoryImpl.UserRepositoryImpl;
 import com.example.sonrisaplantjv.domain.dto.User.Register;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
 import com.example.sonrisaplantjv.domain.usecase.user.RegisterUseCase;
-import com.example.sonrisaplantjv.domain.usecase.user.CallBackResponse;
+import com.example.sonrisaplantjv.domain.usecase.CallBackResponse;
 import com.example.sonrisaplantjv.domain.utils.RegisterStatus;
 import com.example.sonrisaplantjv.domain.utils.ValidatorUtils;
 

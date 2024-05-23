@@ -1,4 +1,4 @@
-package com.example.sonrisaplantjv.domain.usecase.user;
+package com.example.sonrisaplantjv.domain.usecase;
 
 public interface CallBackResponse {
     void onSuccess();

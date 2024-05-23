@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,6 +12,7 @@ import com.example.sonrisaplantjv.data.CurrentContext;
 import com.example.sonrisaplantjv.domain.dto.User.Authenticate;
 import com.example.sonrisaplantjv.domain.dto.User.LoginResponse;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
+import com.example.sonrisaplantjv.domain.usecase.CallBackResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

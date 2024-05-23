@@ -8,10 +8,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.sonrisaplantjv.common.Constant;
 import com.example.sonrisaplantjv.domain.dto.ResponseUUID;
-import com.example.sonrisaplantjv.domain.dto.User.Register;
-import com.example.sonrisaplantjv.domain.dto.User.UpdateUser;
 import com.example.sonrisaplantjv.domain.dto.User.UpdateUserRequest;
 import com.example.sonrisaplantjv.domain.repository.User.UserRepository;
+import com.example.sonrisaplantjv.domain.usecase.CallBackResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

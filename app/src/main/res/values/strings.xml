@@ -26,4 +26,6 @@
     <string name="add_a_pin">Add a PIN number to make your account more secure</string>
     <string name="create_new_pin">Create New PIN</string>
     <string name="loading">Loading...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
