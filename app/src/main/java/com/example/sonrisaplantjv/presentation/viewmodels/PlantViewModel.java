@@ -14,6 +14,7 @@ import com.example.sonrisaplantjv.domain.dto.Plant.PlantRequestParameters;
 import com.example.sonrisaplantjv.domain.usecase.CallBackResponse;
 import com.example.sonrisaplantjv.domain.usecase.Plant.AddToWishListUseCase;
 import com.example.sonrisaplantjv.domain.usecase.Plant.GetAllPlantPagingUseCase;
+import com.example.sonrisaplantjv.domain.usecase.Plant.GetAllPlantWishListUseCase;
 import com.example.sonrisaplantjv.domain.usecase.Plant.RemoveFromWishListUseCase;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class PlantViewModel extends AndroidViewModel {
     private LiveData<Integer> PageSize;
     private LiveData<Integer> PageNumber;
     private final GetAllPlantPagingUseCase getAllPlantPagingUseCase;
+    private final GetAllPlantWishListUseCase getAllPlantWishListUseCase;
 
     private LiveData<List<PlantDto>> plants;
     private MutableLiveData<Boolean> isNullCall;
@@ -37,6 +39,7 @@ public class PlantViewModel extends AndroidViewModel {
         removeFromWishListUseCase = new RemoveFromWishListUseCase(new PlantRepositoryImpl(), application);
         getAllPlantPagingUseCase = new GetAllPlantPagingUseCase(new PlantRepositoryImpl(), application);
         addToWishListUseCase = new AddToWishListUseCase(new PlantRepositoryImpl(), application);
+        getAllPlantWishListUseCase = new GetAllPlantWishListUseCase(new PlantRepositoryImpl(),application);
         plants = new MutableLiveData<>(new ArrayList<PlantDto>());
         PageSize = new MutableLiveData<>(10);
         PageNumber = new MutableLiveData<>(0);
@@ -44,6 +47,15 @@ public class PlantViewModel extends AndroidViewModel {
     }
     public LiveData<List<PlantDto>> getPlantPaging(PlantRequestParameters request) {
         plants = getAllPlantPagingUseCase.execute(request);
+        if (plants != null && plants.getValue() != null && !plants.getValue().isEmpty()) {
+            isNullCall.postValue(false);
+        } else {
+            isNullCall.postValue(true);
+        }
+        return plants;
+    }
+    public LiveData<List<PlantDto>> getPlantInWishList(PlantRequestParameters request) {
+        plants = getAllPlantWishListUseCase.execute(request);
         if (plants != null && plants.getValue() != null && !plants.getValue().isEmpty()) {
             isNullCall.postValue(false);
         } else {

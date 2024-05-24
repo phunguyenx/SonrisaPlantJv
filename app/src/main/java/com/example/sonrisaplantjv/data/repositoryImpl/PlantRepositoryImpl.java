@@ -10,6 +10,7 @@ import com.example.sonrisaplantjv.domain.repository.Plant.PlantRepository;
 import java.util.UUID;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 
 public class PlantRepositoryImpl implements PlantRepository {
     @Override
@@ -20,6 +21,11 @@ public class PlantRepositoryImpl implements PlantRepository {
     @Override
     public Call<ResponseUUID> addToWishList(UUID idPlant) {
         return RetrofitInstance.getRetrofitInstance().create(IPlantService.class).addToWishList(idPlant);
+    }
+
+    @Override
+    public Call<ListOfPlant> getAllPlantWishlist(PlantRequestParameters request) {
+        return RetrofitInstance.getRetrofitInstance().create(IPlantService.class).getAllPlantWishlist(request);
     }
 
     @Override

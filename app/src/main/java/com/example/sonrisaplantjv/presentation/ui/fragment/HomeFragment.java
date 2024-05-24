@@ -1,6 +1,7 @@
 package com.example.sonrisaplantjv.presentation.ui.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.example.sonrisaplantjv.domain.dto.Plant.PlantRequestParameters;
 import com.example.sonrisaplantjv.presentation.adapter.CategoryAdapter;
 import com.example.sonrisaplantjv.presentation.adapter.PlantAdapter;
 import com.example.sonrisaplantjv.presentation.adapter.PlantHomeAdapter;
+import com.example.sonrisaplantjv.presentation.ui.activity.WishlistActivity;
 import com.example.sonrisaplantjv.presentation.ui.components.PaginationScrollListener;
 import com.example.sonrisaplantjv.presentation.viewmodels.CategoryViewModel;
 import com.example.sonrisaplantjv.presentation.viewmodels.PlantHomeViewModel;
@@ -97,6 +99,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater(), container, false);
+        init();
         if (Constant.isNetworkAvailable(getContext())) {
             initMostPopular();
             initSpecialOffer();
@@ -106,6 +109,19 @@ public class HomeFragment extends Fragment {
         }
         return binding.getRoot();
 
+    }
+    private void init(){
+        binding.btnWishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    Intent intent = new Intent(getContext(), WishlistActivity.class);
+                    getContext().startActivity(intent);
+                }catch (Exception e){
+                    Log.e("error home", e.getMessage());
+                }
+            }
+        });
     }
     private void initSpecialOffer(){
         specialOrder = new ViewModelProvider(this).get(PlantHomeViewModel.class);

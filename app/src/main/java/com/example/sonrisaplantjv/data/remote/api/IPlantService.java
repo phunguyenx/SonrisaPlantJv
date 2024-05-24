@@ -21,6 +21,8 @@ public interface IPlantService {
     Call<ListOfPlant> getAllPaging(@Body PlantRequestParameters request);
     @POST("wishlist/add-to-wish-list")
     Call<ResponseUUID> addToWishList(@Body UUID idPlant);
+    @POST("wishlist/getall-paging")
+    Call<ListOfPlant> getAllPlantWishlist(@Body PlantRequestParameters request);
     @DELETE("wishlist/remove-from-wish-list/{id}")
     Call<ResponseUUID> removeFromWishList(@Path("id") UUID idPlant);
 }
